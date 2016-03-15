@@ -1,6 +1,6 @@
 # Overview
 
-This is starter template for writing Android apps using **Clean architecture**. You can download it, modify it and start building your apps on top of it. Most of the boilerplate code for writing your first view, presenter and interactor is already written and you just need to implement your own logic. I wrote a [detailed guide] on how to write apps using this pattern but this README contains the summary.
+This is starter template for writing Android apps using **Clean architecture**. You can download it, modify it and start building your apps on top of it. Most of the boilerplate code for writing your first scanningView, presenter and interactor is already written and you just need to implement your own logic. I wrote a [detailed guide] on how to write apps using this pattern but this README contains the summary.
 
 This starter app supports **API 15 and above**.
 
@@ -12,7 +12,7 @@ To see a sample app using Clean Architecture you can look [here].
 
  - [Android Support Library] for backwards compatibility.
  - [Timber] for logging.
- - [Butterknife] for view injection.
+ - [Butterknife] for scanningView injection.
  - [Retrofit] for network code.
  - [JUnit] and [Mockito] for testing.
  - [Findbugs] for finding bugs, *duh*.
@@ -159,7 +159,7 @@ Again, this Interactor code has no idea that it will live inside an Android app.
 
 Presentation layer is the **outer layer** in Clean. It consists of framework dependent code to display the UI to the user. We will use `MainActivity` class to display the welcome message to the user when the app resumes.
 
-Let's start by writing the interface of our `Presenter` and `View`. The only thing our `view` needs to do is to display the welcome message:
+Let's start by writing the interface of our `Presenter` and `View`. The only thing our `scanningView` needs to do is to display the welcome message:
 
 ```java
 public interface MainPresenter extends BasePresenter {
@@ -170,7 +170,7 @@ public interface MainPresenter extends BasePresenter {
 }
 ```
 
-So how and where do we start the Interactor when an app resumes? Everything that is not strictly view related should go into the `Presenter` class. This helps achieve `separation of concerns` and prevents the `Activity` classes from getting bloated. This includes all code working with Interactors.
+So how and where do we start the Interactor when an app resumes? Everything that is not strictly scanningView related should go into the `Presenter` class. This helps achieve `separation of concerns` and prevents the `Activity` classes from getting bloated. This includes all code working with Interactors.
 
 In our `MainActivity` class we override the `onResume` method:
 

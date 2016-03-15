@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Android-Clean-Boilerplate</string>
+
+
+    <string name="press_to_scan">Press scan to start scanning</string>
+    <string name="scanning">Scanning devices&#8230;</string>
+    <string name="found_devices">Found devices</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="action_scan">Scan</string>
+    <string name="pair_device_dialog">Do you want to pair with this device?</string>
 </resources>
