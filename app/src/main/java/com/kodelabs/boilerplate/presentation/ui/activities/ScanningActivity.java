@@ -16,8 +16,8 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-import android.widget.ProgressBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.kodelabs.boilerplate.R;
@@ -32,7 +32,6 @@ import com.kodelabs.boilerplate.threading.MainThreadImpl;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import timber.log.Timber;
 
 public class ScanningActivity extends AppCompatActivity implements View {
@@ -43,22 +42,15 @@ public class ScanningActivity extends AppCompatActivity implements View {
     @Bind(R.id.titleTextView)
     TextView mTitle;
 
-    @Bind(R.id.subtitleTextView)
-    TextView mSubtitle;
-
-    @Bind(R.id.scanButton)
-    Button mButton;
-
     @Bind(R.id.deviceList)
     RecyclerView mDevicesList;
-
-    @Bind(R.id.scan_progress_bar)
-    ProgressBar mProgressBar;
 
     private ScanPresenter mScanPresenter;
 
     private boolean mBoundService;
     private boolean mRegisteredReceiver;
+
+    private boolean mShowProgress;
 
     private Messenger mService;
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -139,6 +131,39 @@ public class ScanningActivity extends AppCompatActivity implements View {
         registerScanUpdateReceiver();
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.scan_menu, menu);
+        if (mShowProgress) {
+            MenuItem item = menu.findItem(R.id.action_scan_devices);
+            item.setActionView(R.layout.actionbar_indeterminate_progress);
+            item.setVisible(true);
+        } else {
+            MenuItem item = menu.findItem(R.id.action_scan_devices);
+            item.setActionView(null);
+            item.setIcon(R.drawable.ic_scan_devices);
+        }
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_scan_devices:
+                onClickScan();
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -149,7 +174,6 @@ public class ScanningActivity extends AppCompatActivity implements View {
         if (mRegisteredReceiver) unregisterReceiver(mScanUpdateReceiver);
     }
 
-    @OnClick(R.id.scanButton)
     @Override
     public void onClickScan() {
         // clear the list of found devices
@@ -227,19 +251,16 @@ public class ScanningActivity extends AppCompatActivity implements View {
 
     @Override
     public void showProgress() {
-        // disable the scan button
-        mButton.setClickable(false);
-        mProgressBar.setVisibility(android.view.View.VISIBLE);
-        mSubtitle.setVisibility(android.view.View.VISIBLE);
+        mShowProgress = true;
+        invalidateOptionsMenu();
 
         mTitle.setText(getString(R.string.scanning));
     }
 
     @Override
     public void hideProgress() {
-        mButton.setClickable(true);
-        mProgressBar.setVisibility(android.view.View.INVISIBLE);
-        mSubtitle.setVisibility(android.view.View.INVISIBLE);
+        mShowProgress = false;
+        invalidateOptionsMenu();
 
         mTitle.setText(getString(R.string.press_to_scan));
     }

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Android-Clean-Boilerplate</string>
+    <string name="app_name">Android Bluetooth Scanner</string>
 
 
-    <string name="press_to_scan">Press scan to start scanning</string>
+    <string name="press_to_scan">Press search to start scanning</string>
     <string name="scanning">Scanning devices&#8230;</string>
     <string name="found_devices">Found devices</string>
 
