@@ -1,17 +1,17 @@
 package com.kodelabs.boilerplate.domain.repository;
 
-import com.kodelabs.boilerplate.domain.model.SampleModel;
+import com.kodelabs.boilerplate.presentation.model.BleDevice;
 
 /**
  * A sample repository with CRUD operations on a model.
  */
 public interface Repository {
 
-    boolean insert(SampleModel model);
+    boolean insert(BleDevice model);
 
-    boolean update(SampleModel model);
+    boolean update(BleDevice model);
 
-    SampleModel get(Object id);
+    BleDevice get(Object id);
 
-    boolean delete(SampleModel model);
+    boolean delete(BleDevice model);
 }

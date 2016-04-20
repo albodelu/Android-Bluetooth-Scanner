@@ -44,6 +44,7 @@ public class BluetoothLeScanService extends Service implements BluetoothAdapter.
     // Extra key
     public static final String EXTRA_DEVICE_NAME    = "bluetooth_device_name";
     public static final String EXTRA_DEVICE_ADDRESS = "bluetooth_device_address";
+    public static final String EXTRA_DEVICE_RSSI    = "bluetooth_device_rssi";
 
     private Map<String, BluetoothDevice> mDevices;
 
@@ -94,11 +95,12 @@ public class BluetoothLeScanService extends Service implements BluetoothAdapter.
         return mMessenger.getBinder();
     }
 
-    private void broadcastUpdate(BluetoothDevice device) {
+    private void broadcastUpdate(BluetoothDevice device, int rssi) {
         final Intent intent = new Intent(ACTION_FOUND_DEVICE);
 
         intent.putExtra(EXTRA_DEVICE_NAME, device.getName());
         intent.putExtra(EXTRA_DEVICE_ADDRESS, device.getAddress());
+        intent.putExtra(EXTRA_DEVICE_RSSI, rssi);
 
         sendBroadcast(intent);
     }
@@ -111,7 +113,7 @@ public class BluetoothLeScanService extends Service implements BluetoothAdapter.
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
-        broadcastUpdate(device);
+        broadcastUpdate(device, rssi);
 
         Timber.i("***** New Device found *****");
         Timber.i("BluetoothDevice: " + device);

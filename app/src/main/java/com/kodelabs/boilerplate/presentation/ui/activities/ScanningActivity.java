@@ -84,9 +84,10 @@ public class ScanningActivity extends AppCompatActivity implements View {
                     // extract device info
                     String deviceName = intent.getStringExtra(BluetoothLeScanService.EXTRA_DEVICE_NAME);
                     String deviceAddress = intent.getStringExtra(BluetoothLeScanService.EXTRA_DEVICE_ADDRESS);
+                    int rssi = intent.getIntExtra(BluetoothLeScanService.EXTRA_DEVICE_RSSI, -1000);
 
                     // convert it to the view model and notify our presenter
-                    BleDevice device = new BleDevice(deviceName, deviceAddress);
+                    BleDevice device = new BleDevice(deviceName, deviceAddress, rssi);
                     mScanPresenter.onScanUpdate(device);
                     break;
 

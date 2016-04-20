@@ -7,8 +7,6 @@ import com.kodelabs.boilerplate.domain.interactors.base.Interactor;
 public interface ScanningInteractor extends Interactor {
 
     interface Callback {
-        // TODO: Add interactor callback methods here
-    }
 
-    // TODO: Add interactor methods here
+    }
 }

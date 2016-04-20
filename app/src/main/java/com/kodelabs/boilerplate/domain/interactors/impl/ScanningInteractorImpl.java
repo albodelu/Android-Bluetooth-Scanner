@@ -25,6 +25,6 @@ public class ScanningInteractorImpl extends AbstractInteractor implements Scanni
 
     @Override
     public void run() {
-        // TODO: Implement this with your business logic
     }
+
 }

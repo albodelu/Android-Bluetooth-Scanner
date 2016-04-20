@@ -31,8 +31,11 @@ public class BleDeviceListAdapter extends RecyclerView.Adapter<ViewHolder> imple
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.device_name)
+        @Bind(R.id.device_name_textview)
         public TextView mDeviceName;
+
+        @Bind(R.id.device_rssi_textview)
+        public TextView mRssi;
 
         @Bind(R.id.connect_button)
         public TextView mConnectButton;
@@ -49,6 +52,14 @@ public class BleDeviceListAdapter extends RecyclerView.Adapter<ViewHolder> imple
     }
 
     public void addDevice(BleDevice device) {
+        if (!mDevices.contains(device)) {
+
+            mDevices.add(device);
+            return;
+        }
+
+        // update the old rssi
+        mDevices.remove(device);
         mDevices.add(device);
     }
 
@@ -114,6 +125,7 @@ public class BleDeviceListAdapter extends RecyclerView.Adapter<ViewHolder> imple
             deviceAddr = "Unknown address";
 
         holder.mDeviceName.setText(device.getName());
+        holder.mRssi.setText(String.valueOf(device.getRssi()));
     }
 
 
