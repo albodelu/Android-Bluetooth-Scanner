@@ -25,7 +25,7 @@ import timber.log.Timber;
  */
 public class BluetoothLeScanService extends Service implements BluetoothAdapter.LeScanCallback {
 
-    private static final long SCAN_PERIOD = 10000; // in milliseconds
+    private static final long SCAN_PERIOD = 60 * 1000; // in milliseconds
 
     private BluetoothAdapter mBluetoothAdapter;
     private boolean          mScanning;

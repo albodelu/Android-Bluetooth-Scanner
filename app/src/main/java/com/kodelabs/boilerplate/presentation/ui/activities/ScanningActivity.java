@@ -36,7 +36,8 @@ import timber.log.Timber;
 
 public class ScanningActivity extends AppCompatActivity implements View {
 
-    public static final int REQUEST_ENABLE_BT = 1;
+    public static final int    REQUEST_ENABLE_BT = 1;
+    public static final String KEY_PROGRESS_BAR  = "key_progress_bar";
 
 
     @Bind(R.id.titleTextView)
@@ -119,6 +120,11 @@ public class ScanningActivity extends AppCompatActivity implements View {
 
         Timber.w("CREATE");
 
+        if (savedInstanceState != null) {
+            mShowProgress = savedInstanceState.getBoolean(KEY_PROGRESS_BAR, false);
+            if (mShowProgress) showProgress();
+        }
+
         mDevicesList.setLayoutManager(new LinearLayoutManager(this));
 
         // instantiate the presenter
@@ -173,6 +179,12 @@ public class ScanningActivity extends AppCompatActivity implements View {
 
         if (mBoundService) unbindService(mServiceConnection);
         if (mRegisteredReceiver) unregisterReceiver(mScanUpdateReceiver);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_PROGRESS_BAR, mShowProgress);
     }
 
     @Override

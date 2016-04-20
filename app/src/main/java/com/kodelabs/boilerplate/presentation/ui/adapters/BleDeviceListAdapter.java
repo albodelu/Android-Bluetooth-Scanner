@@ -137,7 +137,7 @@ public class BleDeviceListAdapter extends RecyclerView.Adapter<ViewHolder> imple
         if (deviceAddr == null)
             deviceAddr = "Unknown address";
 
-        holder.mDeviceName.setText(device.getName());
+        holder.mDeviceName.setText(device.getAddress());
         holder.mRssi.setText(String.valueOf(device.getRssi()));
     }
 
