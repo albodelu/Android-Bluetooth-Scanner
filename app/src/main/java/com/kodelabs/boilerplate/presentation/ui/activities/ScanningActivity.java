@@ -247,7 +247,6 @@ public class ScanningActivity extends AppCompatActivity implements View {
         }
 
         mDeviceListAdapter.addDevice(device);
-        mDeviceListAdapter.notifyDataSetChanged();
     }
 
     @Override

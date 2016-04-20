@@ -52,15 +52,28 @@ public class BleDeviceListAdapter extends RecyclerView.Adapter<ViewHolder> imple
     }
 
     public void addDevice(BleDevice device) {
+
+        // check that we don't already have this device listed
         if (!mDevices.contains(device)) {
 
             mDevices.add(device);
+            notifyDataSetChanged();
             return;
         }
 
-        // update the old rssi
-        mDevices.remove(device);
-        mDevices.add(device);
+        // we have to update the old device data
+        BleDevice bleDevice = null;
+        for (int i = 0; i < mDevices.size(); i++) {
+            bleDevice = mDevices.get(i);
+
+            // update the rssi
+            if (bleDevice.equals(device)) {
+                bleDevice.setRssi(device.getRssi());
+                notifyItemChanged(i);
+                break;
+            }
+        }
+
     }
 
     @Override
